@@ -37,6 +37,16 @@ if(OpenMP_CXX_FOUND)
     target_compile_definitions(PONG_AI PRIVATE UTEC_OPENMP_ENABLED)
 endif()
 
+# Example executables
+add_executable(train_xor examples/train_xor.cpp ${SOURCES})
+add_executable(train_pong_agent examples/train_pong_agent.cpp ${SOURCES})
+
+# Link OpenMP to examples if available
+if(OpenMP_CXX_FOUND)
+    target_link_libraries(train_xor OpenMP::OpenMP_CXX)
+    target_link_libraries(train_pong_agent OpenMP::OpenMP_CXX)
+endif()
+
 # === TESTING FRAMEWORK ===
 enable_testing()
 

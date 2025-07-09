@@ -31,7 +31,6 @@ public:
     }
 
     State reset() {
-        // Reset ball to center with random direction
         current_state.ball_x = 0.5f;
         current_state.ball_y = 0.5f;
         current_state.paddle_y = 0.5f;

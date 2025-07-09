@@ -7,6 +7,8 @@
 #include <memory>
 #include <iostream>
 #include <iomanip> // For std::setprecision
+#include <limits>  // For std::numeric_limits
+#include <cmath>   // For std::isnan, std::isinf
 
 namespace utec::neural_network {
 

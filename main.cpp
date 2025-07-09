@@ -38,7 +38,34 @@ void demo_neural_network() {
     net.add_layer(std::make_unique<ReLU<float>>());
     net.add_layer(std::make_unique<Dense<float>>(4, 1));
 
-    // Create some dummy data
+    // EJEMPLO DE ENTRENAMIENTO SIMPLE
+    std::cout << "Entrenando red neuronal...\n";
+
+    // Datos XOR simples
+    Tensor<float, 2> X(4, 2);
+    X(0,0)=0; X(0,1)=0; X(1,0)=0; X(1,1)=1;
+    X(2,0)=1; X(2,1)=0; X(3,0)=1; X(3,1)=1;
+
+    Tensor<float, 2> Y(4, 1);
+    Y(0,0)=0; Y(1,0)=1; Y(2,0)=1; Y(3,0)=0;
+
+    // Entrenar con el método avanzado
+    auto metrics = net.train_advanced(X, Y, 1000, 0.1f, 20, 1e-6f);
+
+    std::cout << "Entrenamiento completado!\n";
+    std::cout << "Épocas: " << metrics.epochs_trained << "\n";
+    std::cout << "Loss final: " << metrics.final_loss << "\n";
+
+    // Probar predicciones
+    std::cout << "Probando predicciones:\n";
+    auto predictions = net.forward(X);
+    for (int i = 0; i < 4; ++i) {
+        std::cout << "Input: [" << X(i,0) << "," << X(i,1)
+                  << "] -> Esperado: " << Y(i,0)
+                  << ", Predicho: " << predictions(i,0) << "\n";
+    }
+
+    // Create some dummy data for original demo
     Tensor<float, 2> input(1, 2);
     input(0, 0) = 0.5f;
     input(0, 1) = 0.3f;
